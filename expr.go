@@ -53,7 +53,7 @@ func (b *Builder) build(expr string, node *sitter.Node) (Expression, error) {
 			var err error
 			if child.IsError() {
 				err = ErrParsing
-			} else if child.Type() == "constant" && child.StartByte() == child.EndByte() {
+			} else if child.Symbol() == C.sym_constant && child.StartByte() == child.EndByte() {
 				err = ErrEmptyConstant
 			}
 			if err != nil {
@@ -61,12 +61,12 @@ func (b *Builder) build(expr string, node *sitter.Node) (Expression, error) {
 				return nil, fmt.Errorf("%w: %s", err, content)
 			}
 		}
-		switch child.Type() {
-		case "expression":
+		switch child.Symbol() {
+		case C.sym_expression:
 			return b.build(expr, child)
-		case "constant":
+		case C.sym_constant:
 			return NewConstantExpression(expr[child.StartByte():child.EndByte()])
-		case "arithmetic":
+		case C.sym_arithmetic:
 			if child.ChildCount() != 3 {
 				return nil, errors.New("arithmetic rule has wrong number of children")
 			}
