@@ -1,0 +1,14 @@
+{
+  "name": "go-expr",
+  "version": "1.0.0",
+  "description": "toy expression language evaluated in golang",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "generate": "tree-sitter generate --no-bindings"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.2",
+    "tree-sitter-cli": "^0.22.6"
+  }
+}
